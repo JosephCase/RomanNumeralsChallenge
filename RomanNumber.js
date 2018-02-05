@@ -16,6 +16,11 @@ const numeralsLookup = {
 	'I' 	: 	1
 }
 
+const STRING = 'string';
+const NUMBER = 'number';
+
+
+
 module.exports = class RomanNumber {
 
 	constructor(input) {
@@ -28,7 +33,7 @@ module.exports = class RomanNumber {
 
 		this.validateType(input);
 
-		if(typeof input === 'string') {
+		if(typeof input === STRING) {
 
 			this.validateNumeral(input);					//validate as numeral
 			let int = this.convertNumeralToInteger(input);	//convert it to an integer
@@ -38,7 +43,7 @@ module.exports = class RomanNumber {
 			this.integer = int;
 			this.numeral = input;
 
-		} else if (typeof input === 'number') {
+		} else if (typeof input === NUMBER) {
 
 			this.validateInteger(input);					//validate as integer
 
@@ -63,11 +68,11 @@ module.exports = class RomanNumber {
 	// validation functions
 	validateType(input) {
 		if(input === undefined || input === null) throw new Error('value required');
-		if(typeof input !== 'string' && typeof input !== 'number') throw new Error('invalid value');
+		if(typeof input !== STRING && typeof input !== NUMBER) throw new Error('invalid value');
 	}
 	validateNumeral(numeral) {
 		// check for string length
-		if(numeral.length === 0) throw new	Error('invalid value');
+		if(numeral.length === 0) throw new Error('value required');
 		// check for invalid numerals
 		const invalidNumerals = ['MMMM', 'CCCC', 'XXXX', 'IIII'];
 		invalidNumerals.forEach(invalidNum => {
