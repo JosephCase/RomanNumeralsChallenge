@@ -17,22 +17,17 @@ const numeralsLookup = {
 }
 
 module.exports = class RomanNumber {
+
 	constructor(input) {
+		this.input = input;
 		this.numeral = null;
-		this.integer = null;
-
-		if(this.getType(input) === 'string') {
-			this.numeral = this.validateNumeral(input) && input;
-		} else if(this.getType(input) === 'integer') {
-			this.integer = this.validateInteger(input) && input;			
-		}
-
+		// this.integer = null;
 	}
 
 	// validation layer
 	getType(input) {
 		// for now do not accept integers as strings e.g. '11'
-		if(typeof input === 'number' || typeof input === 'string') {
+		if(typeof input === 'string') {
 			return typeof input;
 		}
 		throw new Error('invalid value');
@@ -47,13 +42,24 @@ module.exports = class RomanNumber {
 	}
 
 	toInt() {
-		if(this.integer) return this.integer;	// return if we already have the value.
 
+		let input = this.input;
+
+		if(this.getType(input) === 'string') {
+			this.validateNumeral(input);					//validate as numeral
+			var int = this.convertNumeralToInteger(input);	//convert it to an integer
+			this.validateInteger(int);						//validate as an integer
+			return int;
+		}
+
+	}
+
+	convertNumeralToInteger(num) {
 		var total = 0;
-		for (var i = 0; i < this.numeral.length; i++) {
+		for (var i = 0; i < this.num.length; i++) {
 
-			let char = this.numeral.charAt(i);
-			let nextChar = this.numeral.charAt(i+1);
+			let char = this.num.charAt(i);
+			let nextChar = this.num.charAt(i+1);
 			if(numeralsLookup[char] < numeralsLookup[nextChar]) {
 				total = total + numeralsLookup[char.concat(nextChar)];
 				i++;	//skip the next character
@@ -63,9 +69,7 @@ module.exports = class RomanNumber {
 
 		}
 
-		this.integer = total;
-
-		return this.integer;
-
+		return total;
 	}
+
 }
