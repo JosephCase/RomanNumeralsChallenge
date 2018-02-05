@@ -6,8 +6,7 @@ const testCases = [null, '', 0, 1, 3, 4, 5, 'I', 'III', 'IIII', 'IV', 'V'
 
 function runTests() {
 	testCases.forEach(function(input)  {
-		// console.log('%s toInt returns', input, testToInt(input));
-		testToInt('I')
+		console.log('%s toInt returns', input, testToInt(input));
 	});
 }
 

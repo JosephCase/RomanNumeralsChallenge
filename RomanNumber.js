@@ -25,12 +25,8 @@ module.exports = class RomanNumber {
 	}
 
 	// validation layer
-	getType(input) {
-		// for now do not accept integers as strings e.g. '11'
-		if(typeof input === 'string') {
-			return typeof input;
-		}
-		throw new Error('invalid value');
+	validateType(input) {
+		if(typeof input !== 'string' && typeof input !== 'number') throw new Error('invalid value');
 	}
 	validateNumeral(numeral) {
 		// check for string length
@@ -49,7 +45,6 @@ module.exports = class RomanNumber {
 	//lookup functions
 	lookupInteger(numeral) {
 		let int = numeralsLookup[numeral];
-		console.log(numeral, int);
 		if(!int) throw new Error('invalid value');
 		return int;
 	}
@@ -58,11 +53,16 @@ module.exports = class RomanNumber {
 
 		let input = this.input;
 
-		if(this.getType(input) === 'string') {
+		this.validateType(input);
+
+		if(typeof input === 'string') {
 			this.validateNumeral(input);					//validate as numeral
 			var int = this.convertNumeralToInteger(input);	//convert it to an integer
 			this.validateInteger(int);						//validate as an integer
 			return int;
+		} elseif (typeof input === 'number') {
+			this.validateInteger(input);					//validate as integer
+			return input;			
 		}
 
 	}
@@ -70,7 +70,6 @@ module.exports = class RomanNumber {
 	convertNumeralToInteger(num) {
 		var total = 0;
 		for (var i = 0; i < num.length; i++) {
-
 			let char = num.charAt(i);
 			let nextChar = num.charAt(i+1);
 			if(nextChar && this.lookupInteger(char) < this.lookupInteger(nextChar)) {
