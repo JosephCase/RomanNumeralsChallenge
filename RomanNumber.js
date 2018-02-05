@@ -33,8 +33,15 @@ module.exports = class RomanNumber {
 		throw new Error('invalid value');
 	}
 
-	validateNumeral() {
-		return true;
+	validateNumeral(numeral) {
+		// check for string length
+		if(numeral.length === 0) throw new	Error('invalid value');
+		// check for invalid numerals
+		const invalidNumerals = ['MMMM', 'CCCC', 'XXXX', 'IIII'];
+		invalidNumerals.forEach(invalidNum => {
+			if(numeral.includes(invalidNum)) throw new Error('invalid value');
+		})
+		
 	}
 
 	validateInteger() {
