@@ -1,6 +1,6 @@
 // RomanNumber class
 
-const NumeralsLookup = {
+const numeralsLookup = {
 	'M' 	: 	1000,
 	'CM' 	: 	900,
 	'D' 	: 	500,
@@ -18,9 +18,29 @@ const NumeralsLookup = {
 
 module.exports = class RomanNumber {
 	constructor(input) {
-		this.input = input;
+		this.numeral = input;
+		this.integer = null;
 	}
 	toInt() {
-		return 'As integer';
+		if(this.integer) return this.integer;	// return if we already have the value.
+
+		var total = 0;
+		for (var i = 0; i < this.numeral.length; i++) {
+
+			let char = this.numeral.charAt(i);
+			let nextChar = this.numeral.charAt(i+1);
+			if(numeralsLookup[char] < numeralsLookup[nextChar]) {
+				total = total + numeralsLookup[char.concat(nextChar)];
+				i++;	//skip the next character
+			} else {
+				total = total + numeralsLookup[char];
+			}
+
+		}
+
+		this.integer = total;
+
+		return this.integer;
+
 	}
 }

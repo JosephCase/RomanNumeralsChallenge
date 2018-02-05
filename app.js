@@ -2,7 +2,7 @@
 const RomanNumber = require('./RomanNumber');
 
 const testCases = {
-	validNumerals: ['I','III','IIII','IV','V','CDXXIX','MCDLXXXII','MCMLXXX']
+	validNumerals: ['I','III', 'IV','V','CDXXIX','MCDLXXXII','MCMLXXX']
 }
 
 function runTests() {
