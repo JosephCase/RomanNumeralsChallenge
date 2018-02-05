@@ -60,7 +60,7 @@ module.exports = class RomanNumber {
 			var int = this.convertNumeralToInteger(input);	//convert it to an integer
 			this.validateInteger(int);						//validate as an integer
 			return int;
-		} elseif (typeof input === 'number') {
+		} else if (typeof input === 'number') {
 			this.validateInteger(input);					//validate as integer
 			return input;			
 		}
