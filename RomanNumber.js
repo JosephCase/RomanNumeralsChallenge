@@ -124,23 +124,24 @@ module.exports = class RomanNumber {
 
 			var char = '';
 
-			// this could be a little bit brittle..
-			// if in the format VI, VII, VIII append the V and leave the I, II, II for next conditional statement
 			if([6,7,8].includes(fig)){
-				console.log(fig);
-				char += this.lookupNumeral(5 * mag)
-				fig -= 5;
-			}
 
-			console.log(char);
+				// if in the format VI, VII, VIII append the V and then however many I's left
+				char += this.lookupNumeral(5 * mag);	//add a 5
+				for (var j = 1; j <= (fig - 5); j++) {	// add the 1s
+					char += this.lookupNumeral(mag)
+				}
 
-			// add single units onto the end of the char
-			if([2,3].includes(fig)){
-				console.log(fig);
+			} else if([2,3].includes(fig)){
+
+				// just apend the amount of Is correspondiong to the number
 				for (var j = 1; j <= fig; j++) {
 					char += this.lookupNumeral(mag)
 				}
-			} else {
+
+			} else if(fig === 0) {
+				//do nothing	-	just adding this condidion for clarity
+			} else { 
 				char = this.lookupNumeral(fig * mag);
 			}
 
