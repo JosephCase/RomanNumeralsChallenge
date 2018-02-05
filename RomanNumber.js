@@ -20,7 +20,7 @@ module.exports = class RomanNumber {
 
 	constructor(input) {
 		this.input = input;
-		this.numeral = null;
+		// this.numeral = null;
 		// this.integer = null;
 	}
 
@@ -56,10 +56,10 @@ module.exports = class RomanNumber {
 
 	convertNumeralToInteger(num) {
 		var total = 0;
-		for (var i = 0; i < this.num.length; i++) {
+		for (var i = 0; i < num.length; i++) {
 
-			let char = this.num.charAt(i);
-			let nextChar = this.num.charAt(i+1);
+			let char = num.charAt(i);
+			let nextChar = num.charAt(i+1);
 			if(numeralsLookup[char] < numeralsLookup[nextChar]) {
 				total = total + numeralsLookup[char.concat(nextChar)];
 				i++;	//skip the next character
