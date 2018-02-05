@@ -44,6 +44,7 @@ module.exports = class RomanNumber {
 
 			// if everything's good set the integer and numeral values
 			this.integer = input;
+			this.numeral = this.convertIntegerToNumeral(input);
 
 		}
 	}
@@ -75,6 +76,14 @@ module.exports = class RomanNumber {
 		if(!int) throw new Error('invalid value');
 		return int;
 	}
+	lookupNumeral(int) {
+		for (var key in numeralsLookup) {
+			if(numeralsLookup[key] == int){
+				return key;
+			}
+		}
+		return '#BUG#';
+	}
 
 
 	// get functions
@@ -103,6 +112,21 @@ module.exports = class RomanNumber {
 		}
 
 		return total;
+	}
+
+	convertIntegerToNumeral(int) {
+		var intString = int.toString();
+		var numeral = '';
+		for (var i = 0; i < intString.length; i++) {
+
+			let fig = intString.charAt(i);									//set current figure e.g. 1, 4, 7, 2...
+			let mag = Math.pow(10, intString.length - (i + 1));				//set magnitude 1000, 100, 10 or 1;
+
+			let char = this.lookupNumeral(fig * mag);
+			numeral += char;
+
+		}
+		return numeral;
 	}
 
 }
