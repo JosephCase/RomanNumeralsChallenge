@@ -32,7 +32,6 @@ module.exports = class RomanNumber {
 		}
 		throw new Error('invalid value');
 	}
-
 	validateNumeral(numeral) {
 		// check for string length
 		if(numeral.length === 0) throw new	Error('invalid value');
@@ -43,9 +42,16 @@ module.exports = class RomanNumber {
 		})
 		
 	}
+	validateInteger(int) {
+		if(int < 1 || int > 3999) throw new Error('invalid range');
+	}
 
-	validateInteger() {
-		return true;
+	//lookup functions
+	lookupInteger(numeral) {
+		let int = numeralsLookup[numeral];
+		console.log(numeral, int);
+		if(!int) throw new Error('invalid value');
+		return int;
 	}
 
 	toInt() {
@@ -67,11 +73,11 @@ module.exports = class RomanNumber {
 
 			let char = num.charAt(i);
 			let nextChar = num.charAt(i+1);
-			if(numeralsLookup[char] < numeralsLookup[nextChar]) {
-				total = total + numeralsLookup[char.concat(nextChar)];
+			if(nextChar && this.lookupInteger(char) < this.lookupInteger(nextChar)) {
+				total = total + this.lookupInteger(char.concat(nextChar));
 				i++;	//skip the next character
 			} else {
-				total = total + numeralsLookup[char];
+				total = total + this.lookupInteger(char);
 			}
 
 		}
