@@ -119,10 +119,31 @@ module.exports = class RomanNumber {
 		var numeral = '';
 		for (var i = 0; i < intString.length; i++) {
 
-			let fig = intString.charAt(i);									//set current figure e.g. 1, 4, 7, 2...
+			let fig = intString.charAt(i) * 1;								//set current figure e.g. 1, 4, 7, 2...
 			let mag = Math.pow(10, intString.length - (i + 1));				//set magnitude 1000, 100, 10 or 1;
 
-			let char = this.lookupNumeral(fig * mag);
+			var char = '';
+
+			// this could be a little bit brittle..
+			// if in the format VI, VII, VIII append the V and leave the I, II, II for next conditional statement
+			if([6,7,8].includes(fig)){
+				console.log(fig);
+				char += this.lookupNumeral(5 * mag)
+				fig -= 5;
+			}
+
+			console.log(char);
+
+			// add single units onto the end of the char
+			if([2,3].includes(fig)){
+				console.log(fig);
+				for (var j = 1; j <= fig; j++) {
+					char += this.lookupNumeral(mag)
+				}
+			} else {
+				char = this.lookupNumeral(fig * mag);
+			}
+
 			numeral += char;
 
 		}
