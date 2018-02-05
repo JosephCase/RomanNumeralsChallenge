@@ -50,7 +50,17 @@ module.exports = class RomanNumber {
 	}
 
 
-	// validation function
+	// get functions
+	toInt() {
+		return this.integer;
+	}
+
+	toString() {
+		return this.numeral;
+	}
+
+
+	// validation functions
 	validateType(input) {
 		if(input === undefined || input === null) throw new Error('value required');
 		if(typeof input !== 'string' && typeof input !== 'number') throw new Error('invalid value');
@@ -67,32 +77,6 @@ module.exports = class RomanNumber {
 	}
 	validateInteger(int) {
 		if(int < 1 || int > 3999) throw new Error('invalid range');
-	}
-
-
-	//lookup functions
-	lookupInteger(numeral) {
-		let int = numeralsLookup[numeral];
-		if(!int) throw new Error('invalid value');
-		return int;
-	}
-	lookupNumeral(int) {
-		for (var key in numeralsLookup) {
-			if(numeralsLookup[key] == int){
-				return key;
-			}
-		}
-		return '#BUG#';
-	}
-
-
-	// get functions
-	toInt() {
-		return this.integer;
-	}
-
-	toString() {
-		return this.numeral;
 	}
 
 
@@ -151,4 +135,19 @@ module.exports = class RomanNumber {
 		return numeral;
 	}
 
+
+	//lookup functions
+	lookupInteger(numeral) {
+		let int = numeralsLookup[numeral];
+		if(!int) throw new Error('invalid value');
+		return int;
+	}
+	lookupNumeral(int) {
+		for (var key in numeralsLookup) {
+			if(numeralsLookup[key] == int){
+				return key;
+			}
+		}
+		return '#BUG#';
+	}
 }
