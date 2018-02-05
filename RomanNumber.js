@@ -20,7 +20,7 @@ module.exports = class RomanNumber {
 	constructor(input) {
 		this.input = input;
 	}
-	getInput() {
-		return this.input;
+	toInt() {
+		return 'As integer';
 	}
 }

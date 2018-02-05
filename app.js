@@ -1,10 +1,17 @@
 // tests go here
-
 const RomanNumber = require('./RomanNumber');
 
-console.log('Hello world!');
+const testCases = {
+	validNumerals: ['I','III','IIII','IV','V','CDXXIX','MCDLXXXII','MCMLXXX']
+}
 
-const romanNumber1 = new RomanNumber('any input here');
+function runTests() {
+	testCases.validNumerals.forEach(function(numeral)  {    
+		let romanNumber = new RomanNumber(numeral);
+		console.log('%s is', numeral, romanNumber.toInt());
+	});
+}
 
-console.log(romanNumber1.getInput());
+runTests();
+
 
