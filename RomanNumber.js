@@ -19,13 +19,39 @@ const numeralsLookup = {
 module.exports = class RomanNumber {
 
 	constructor(input) {
-		this.input = input;
-		// this.numeral = null;
-		// this.integer = null;
+		this.numeral = null;
+		this.integer = null;
+		this.setValues(input);
 	}
 
-	// validation layer
+	setValues(input) {
+
+		this.validateType(input);
+
+		if(typeof input === 'string') {
+
+			this.validateNumeral(input);					//validate as numeral
+			let int = this.convertNumeralToInteger(input);	//convert it to an integer
+			this.validateInteger(int);						//validate as an integer
+
+			// if everything's good set the integer and numeral values
+			this.integer = int;
+			this.numeral = input;
+
+		} else if (typeof input === 'number') {
+
+			this.validateInteger(input);					//validate as integer
+
+			// if everything's good set the integer and numeral values
+			this.integer = input;
+
+		}
+	}
+
+
+	// validation function
 	validateType(input) {
+		if(input === undefined || input === null) throw new Error('value required');
 		if(typeof input !== 'string' && typeof input !== 'number') throw new Error('invalid value');
 	}
 	validateNumeral(numeral) {
@@ -42,6 +68,7 @@ module.exports = class RomanNumber {
 		if(int < 1 || int > 3999) throw new Error('invalid range');
 	}
 
+
 	//lookup functions
 	lookupInteger(numeral) {
 		let int = numeralsLookup[numeral];
@@ -49,24 +76,18 @@ module.exports = class RomanNumber {
 		return int;
 	}
 
+
+	// get functions
 	toInt() {
-
-		let input = this.input;
-
-		this.validateType(input);
-
-		if(typeof input === 'string') {
-			this.validateNumeral(input);					//validate as numeral
-			var int = this.convertNumeralToInteger(input);	//convert it to an integer
-			this.validateInteger(int);						//validate as an integer
-			return int;
-		} else if (typeof input === 'number') {
-			this.validateInteger(input);					//validate as integer
-			return input;			
-		}
-
+		return this.integer;
 	}
 
+	toString() {
+		return this.numeral;
+	}
+
+
+	// conversion functions
 	convertNumeralToInteger(num) {
 		var total = 0;
 		for (var i = 0; i < num.length; i++) {
