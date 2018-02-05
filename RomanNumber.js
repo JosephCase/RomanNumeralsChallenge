@@ -18,9 +18,23 @@ const numeralsLookup = {
 
 module.exports = class RomanNumber {
 	constructor(input) {
-		this.numeral = input;
+		this.numeral = null;
 		this.integer = null;
+		this.type = null;
+
+
+
 	}
+
+	// validation layer
+	validateType(input) {
+		// for now do not accept integers as strings e.g. '11'
+		if(typeof input === 'number' || 'string') {
+
+		}
+		throw new Error('invalid value');
+	}
+
 	toInt() {
 		if(this.integer) return this.integer;	// return if we already have the value.
 
