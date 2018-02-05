@@ -20,19 +20,30 @@ module.exports = class RomanNumber {
 	constructor(input) {
 		this.numeral = null;
 		this.integer = null;
-		this.type = null;
 
-
+		if(this.getType(input) === 'string') {
+			this.numeral = this.validateNumeral(input) && input;
+		} else if(this.getType(input) === 'integer') {
+			this.integer = this.validateInteger(input) && input;			
+		}
 
 	}
 
 	// validation layer
-	validateType(input) {
+	getType(input) {
 		// for now do not accept integers as strings e.g. '11'
-		if(typeof input === 'number' || 'string') {
-
+		if(typeof input === 'number' || typeof input === 'string') {
+			return typeof input;
 		}
 		throw new Error('invalid value');
+	}
+
+	validateNumeral() {
+		return true;
+	}
+
+	validateInteger() {
+		return true;
 	}
 
 	toInt() {
