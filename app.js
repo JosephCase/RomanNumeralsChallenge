@@ -6,17 +6,20 @@ const testCases = [null, '', 0, 1, 3, 4, 5, 'I', 'III', 'IIII', 'IV', 'V'
 
 function runTests() {
 	testCases.forEach(function(input)  {
-		console.log('%s toInt returns', input, testToInt(input));
+		console.log('\nTesting input %s;', input, testInput(input));
 	});
 }
 
-function testToInt(input) {
+function testInput(input) {
 	try {
 		let romanNumber = new RomanNumber(input);
-		return romanNumber.toInt();
+		return `
+	toInt: ${romanNumber.toInt()}
+	toString: ${romanNumber.toString()}`;
 	}
 	catch (err) {
-		return err;
+		return `
+	${err}`;
 	}
 }
 
