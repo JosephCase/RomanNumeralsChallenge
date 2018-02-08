@@ -19,9 +19,12 @@ const numeralsLookup = {
 const STRING = 'string';
 const NUMBER = 'number';
 
+//factory wrapper to ensure we always return a new instance of RomanNumber
+module.exports = function(input) {
+  return new RomanNumber(input);
+}
 
-
-module.exports = class RomanNumber {
+class RomanNumber {
 
 	constructor(input) {
 		this.numeral = null;
